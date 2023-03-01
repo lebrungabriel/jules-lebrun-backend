@@ -11,13 +11,17 @@ var usersRouter = require("./routes/users");
 
 var app = express();
 
+const corsOptions = {
+  origin: "https://jules-lebrun-frontend.vercel.app",
+};
+
 const cors = require("cors");
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(fileUpload());
 
