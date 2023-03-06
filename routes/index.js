@@ -27,9 +27,10 @@ const Image = require("../models/images");
 router.post("/upload", (req, res) => {
   const newImageUrl = new Image({
     url: req.body.url,
+    public_id: req.body.public_id,
   });
   newImageUrl.save().then((newDoc) => {
-    res.json({ url: newDoc });
+    res.json({ image: newDoc });
     console.log("IMAGE URL RESPONSE AFTER SAVING NEWDOC", newDoc);
   });
 });
@@ -44,9 +45,10 @@ router.get("/images", (req, res) => {
 
 router.delete("/delete/:id", async (req, res) => {
   const id = req.params.id;
+  console.log("ID ON PARAMETER", id);
 
   try {
-    const image = await Image.findById(id);
+    const image = await Image.findOne({ _id: id });
     if (!image) {
       return res.json({ message: "Image not found" });
     }
@@ -55,7 +57,10 @@ router.delete("/delete/:id", async (req, res) => {
 
     await image.remove();
 
-    res.json({ message: "Image deleted successfully" });
+    const images = await Image.find({});
+    console.log("images backend", images);
+
+    res.json({ message: "Image deleted successfully", images });
   } catch (error) {
     res.json({ message: "Error deleting image" });
   }
