@@ -5,25 +5,6 @@ const fs = require("fs");
 const uniqid = require("uniqid");
 const Image = require("../models/images");
 
-// router.post("/upload", async (req, res) => {
-//   const photoPath = `./tmp/${uniqid()}.jpg`;
-//   const resultMove = await req.files.photoFromFront.mv(photoPath);
-
-//   if (!resultMove) {
-//     const resultCloudinary = await cloudinary.uploader.upload(photoPath);
-//     fs.unlinkSync(photoPath);
-//     const newImage = new Image({
-//       url: resultCloudinary.secure_url,
-//       public_id: resultCloudinary.public_id,
-//     });
-//     newImage.save().then((newDoc) => {
-//       res.json({ result: true, image: newDoc });
-//     });
-//   } else {
-//     res.json({ result: false, error: resultMove });
-//   }
-// });
-
 router.post("/upload", (req, res) => {
   const newImageUrl = new Image({
     url: req.body.url,
