@@ -1,8 +1,6 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const cloudinary = require("cloudinary").v2;
-const fs = require("fs");
-const uniqid = require("uniqid");
 const Image = require("../models/images");
 
 router.post("/upload", (req, res) => {
@@ -12,16 +10,17 @@ router.post("/upload", (req, res) => {
   });
   newImageUrl.save().then((newDoc) => {
     res.json({ image: newDoc });
-    console.log("IMAGE URL RESPONSE AFTER SAVING NEWDOC", newDoc);
   });
 });
 
 router.get("/images", (req, res) => {
-  Image.find({}).then((images) => {
-    if (images) {
-      res.json({ images });
-    }
-  });
+  Image.find({})
+    .sort({ createdAt: -1 })
+    .then((images) => {
+      if (images) {
+        res.json({ images });
+      }
+    });
 });
 
 router.delete("/delete/:id", async (req, res) => {

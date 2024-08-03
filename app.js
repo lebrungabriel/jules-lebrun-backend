@@ -1,15 +1,15 @@
 require("dotenv").config();
 require("./models/connection");
-var express = require("express");
+const express = require("express");
 const path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const fileUpload = require("express-fileupload");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 
-var app = express();
+const app = express();
 
 const cors = require("cors");
 app.use(cors());
